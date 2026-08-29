@@ -1,0 +1,434 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Outfit', system-ui, sans-serif;
+  background: #0d0a0f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  color: #f5d0e0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ========== INTRO SCREEN ========== */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(26, 26, 26, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  backdrop-filter: blur(8px); 
+}
+.intro.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.enter-btn {
+  background: none;
+  border: none;
+  color: #e0e0e0;
+  font-family: 'Outfit', system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.enter-btn:hover {
+  color: #fff;
+  letter-spacing: 0.45em;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.35);
+  transform: scale(1.03);
+}
+
+/* ========== BACKGROUND ========== */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: #0d0a0f;
+  overflow: hidden;
+}
+
+.bg-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 10, 15, 0.55);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+/* ========== PROFILE CARD ========== */
+.profile-card {
+  background: linear-gradient(165deg, #3a2a38 0%, #2a1e28 45%, #241820 100%);
+  border-radius: 22px;
+  padding: 1.8rem 1.4rem 1.5rem;
+  text-align: center;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(255, 150, 180, 0.12),
+    0 20px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 200, 220, 0.08);
+  overflow: hidden;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140%;
+  height: 70%;
+  background: radial-gradient(ellipse, rgba(255, 120, 160, 0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.avatar-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 1rem;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid rgba(255, 160, 190, 0.55);
+  box-shadow:
+    0 0 20px rgba(255, 100, 150, 0.25),
+    0 0 0 4px rgba(255, 150, 180, 0.08);
+  background: #4a3040;
+}
+
+.name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+  font-weight: 500;
+  color: #ffb6c9;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 0 18px rgba(255, 140, 180, 0.55),
+    0 0 40px rgba(255, 100, 150, 0.25);
+  margin-bottom: 0.15rem;
+}
+
+.subtitle {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: rgba(255, 190, 210, 0.55);
+  text-transform: uppercase;
+  margin-bottom: 1.15rem;
+}
+
+.discord-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  background: rgba(255, 150, 180, 0.08);
+  border: 1px solid rgba(255, 150, 180, 0.18);
+  border-radius: 999px;
+  padding: 0.4rem 0.85rem 0.4rem 0.4rem;
+  margin: 0 auto 1.25rem;
+  max-width: 100%;
+}
+
+.discord-status .mini-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.discord-status .status-info {
+  text-align: left;
+  min-width: 0;
+}
+
+.discord-status .status-name {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #ffc0d4;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.discord-status .status-name .badge {
+  font-size: 0.65rem;
+  background: rgba(255, 100, 150, 0.25);
+  color: #ff9ebb;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.discord-status .status-activity {
+  font-size: 0.68rem;
+  color: rgba(255, 180, 200, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.socials {
+  display: flex;
+  justify-content: center;
+  gap: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.social-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff8fb8;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  filter: drop-shadow(0 0 6px rgba(255, 120, 170, 0.45));
+}
+
+.social-btn:hover {
+  color: #ffb6d0;
+  transform: translateY(-3px) scale(1.12);
+  filter: drop-shadow(0 0 12px rgba(255, 140, 180, 0.7));
+}
+
+.social-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.views {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  color: rgba(255, 180, 200, 0.4);
+}
+
+.views svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ========== MUSIC CARD ========== */
+.music-card {
+  background: linear-gradient(165deg, #3a2a38 0%, #2a1e28 50%, #241820 100%);
+  border-radius: 16px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  box-shadow:
+    0 0 0 1px rgba(255, 150, 180, 0.12),
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 200, 220, 0.06);
+  position: relative;
+}
+
+.music-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.music-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(255, 140, 180, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ff8fb8;
+  filter: drop-shadow(0 0 6px rgba(255, 120, 170, 0.4));
+}
+
+.music-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.music-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.track-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #ffc0d4;
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.time {
+  font-size: 0.65rem;
+  color: rgba(255, 180, 200, 0.5);
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 150, 180, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff7aa2, #ff9ebb);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(255, 120, 170, 0.5);
+  transition: width 0.1s linear;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.ctrl-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff8fb8;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  filter: drop-shadow(0 0 4px rgba(255, 120, 170, 0.35));
+}
+
+.ctrl-btn:hover {
+  color: #ffb6d0;
+  transform: scale(1.15);
+}
+
+.ctrl-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.ctrl-btn.play svg {
+  width: 16px;
+  height: 16px;
+}
+
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 4px;
+}
+
+.vol-icon {
+  width: 15px;
+  height: 15px;
+  color: rgba(255, 160, 190, 0.55);
+  flex-shrink: 0;
+}
+
+.volume-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 3.5px;
+  background: rgba(255, 150, 180, 0.15);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff9ebb;
+  box-shadow: 0 0 8px rgba(255, 120, 170, 0.55);
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff9ebb;
+  border: none;
+  box-shadow: 0 0 8px rgba(255, 120, 170, 0.55);
+  cursor: pointer;
+}
+
+@media (max-width: 380px) {
+  .page { max-width: 100%; }
+  .name { font-size: 1.4rem; }
+}
