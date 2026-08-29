@@ -1,7 +1,7 @@
-// ========== YOUR DISCORD ID ==========
+
 const DISCORD_ID = '822302196372602880';
 
-// ========== VIEW COUNTER ==========
+
 fetch('https://api.countapi.xyz/hit/nana-eewonie-bio/visits')
   .then(r => r.json())
   .then(data => {
@@ -11,7 +11,7 @@ fetch('https://api.countapi.xyz/hit/nana-eewonie-bio/visits')
     document.getElementById('view-count').textContent = '—';
   });
 
-// ========== LANYARD  ==========
+
 function updateDiscord() {
   fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`)
     .then(r => r.json())
@@ -66,7 +66,7 @@ function updateDiscord() {
 updateDiscord();
 setInterval(updateDiscord, 30000);
 
-// ========== INTRO + MUSIC ==========
+
 const intro = document.getElementById('intro');
 const enterBtn = document.getElementById('enter-btn');
 const audio = document.getElementById('audio');
