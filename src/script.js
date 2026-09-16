@@ -1,28 +1,17 @@
 const DISCORD_ID = '822302196372602880';
 
-/* ------------------------------------------------------------------
-   PROFILE EFFECT
-   Lanyard does not expose which profile effect you own, so paste the
-   asset URL here manually. Leave as null to hide it.
-   How to get it: open Discord in browser -> DevTools -> Network tab ->
-   filter "profile-effects" -> click your own profile -> copy the
-   .png / .gif URL of the effect that loads.
-   Example:
-   const PROFILE_EFFECT_URL =
-     'https://cdn.discordapp.com/assets/profile_effects/effects/<id>/intro.png';
-------------------------------------------------------------------- */
 const PROFILE_EFFECT_URL = null;
 
 const $ = (id) => document.getElementById(id);
 
-/* ---------- profile effect ---------- */
+
 if (PROFILE_EFFECT_URL) {
   const fx = $('profile-effect');
   fx.src = PROFILE_EFFECT_URL;
   fx.hidden = false;
 }
 
-/* ---------- view counter ---------- */
+
 fetch('https://api.counterapi.dev/v1/nana-eewonie/visits/up')
   .then((r) => r.json())
   .then((d) => {
@@ -33,7 +22,86 @@ fetch('https://api.counterapi.dev/v1/nana-eewonie/visits/up')
     $('view-count').textContent = '—';
   });
 
-/* ---------- discord presence ---------- */
+
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+document.addEventListener('keydown', (e) => {
+  const key = e.key.toLowerCase();
+  const blockCombo =
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(key)) ||
+    (e.ctrlKey && key === 'u');
+  if (blockCombo) e.preventDefault();
+});
+
+(function watchDevtools() {
+  const threshold = 160; 
+  let triggered = false;
+
+  function check() {
+    const widthGap = window.outerWidth - window.innerWidth > threshold;
+    const heightGap = window.outerHeight - window.innerHeight > threshold;
+    if ((widthGap || heightGap) && !triggered) {
+      triggered = true;
+      location.reload();
+    }
+  }
+
+  setInterval(check, 500);
+})();
+
+
+const TYPEWRITER_WORDS = ['nana (eewonie)'];
+
+function startTypewriter(el, words, {
+  typeSpeed = 90,
+  eraseSpeed = 50,
+  holdTime = 1600,
+  pauseTime = 400,
+} = {}) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = words[0];
+    return;
+  }
+
+  let wordIndex = 0;
+  let charIndex = 0;
+  let erasing = false;
+
+  el.textContent = '';
+  el.classList.add('typewriter');
+
+  function tick() {
+    const word = words[wordIndex];
+
+    if (!erasing) {
+      charIndex++;
+      el.textContent = word.slice(0, charIndex);
+      if (charIndex === word.length) {
+        erasing = true;
+        setTimeout(tick, holdTime);
+        return;
+      }
+      setTimeout(tick, typeSpeed);
+    } else {
+      charIndex--;
+      el.textContent = word.slice(0, charIndex);
+      if (charIndex === 0) {
+        erasing = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        setTimeout(tick, pauseTime);
+        return;
+      }
+      setTimeout(tick, eraseSpeed);
+    }
+  }
+
+  tick();
+}
+
+startTypewriter($('display-name'), TYPEWRITER_WORDS);
+
+
 function decorationUrl(user) {
   const deco = user && user.avatar_decoration_data;
   if (!deco || !deco.asset) return null;
@@ -138,7 +206,7 @@ function updateDiscord() {
 updateDiscord();
 setInterval(updateDiscord, 20000);
 
-/* ---------- music player ---------- */
+
 const intro = $('intro');
 const enterBtn = $('enter-btn');
 const audio = $('audio');
@@ -246,7 +314,7 @@ audio.addEventListener('error', () => {
 
 loadTrack(0);
 
-/* ---------- visualizer ---------- */
+
 const BAR_COUNT = 48;
 const vis = $('visualizer');
 for (let i = 0; i < BAR_COUNT; i++) vis.appendChild(document.createElement('span'));
