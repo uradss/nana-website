@@ -27,7 +27,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ========== INTRO SCREEN ========== */
 .intro {
   position: fixed;
   inset: 0;
@@ -66,7 +65,6 @@ body {
   outline: none;
 }
 
-/* ========== BACKGROUND ========== */
 .bg {
   position: fixed;
   inset: 0;
@@ -103,7 +101,6 @@ body {
   gap: 0.9rem;
 }
 
-/* ========== GLASS BASE ========== */
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(22px) saturate(150%);
@@ -117,7 +114,6 @@ body {
   overflow: hidden;
 }
 
-/* top sheen */
 .glass::after {
   content: '';
   position: absolute;
@@ -129,14 +125,13 @@ body {
   pointer-events: none;
 }
 
-/* ========== PROFILE CARD ========== */
 .profile-card {
   border-radius: 24px;
   padding: 1.8rem 1.4rem 1.6rem;
   text-align: center;
 }
 
-/* Discord profile effect layer (animated PNG/GIF overlay) */
+
 .profile-effect {
   position: absolute;
   inset: 0;
@@ -172,19 +167,19 @@ body {
   background: rgba(255, 200, 220, 0.12);
 }
 
-/* Discord shop avatar decoration (cat ears, etc.) */
+
 .avatar-deco {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 121px;   /* 96 * 1.2585 — matches Discord's ratio */
+  width: 121px;   
   height: 121px;
   transform: translate(-50%, -50%);
   pointer-events: none;
   z-index: 4;
 }
 
-/* when a decoration is shown, drop the ring so it doesn't clash */
+
 .avatar-wrap.has-deco .avatar {
   border-color: transparent;
 }
@@ -214,6 +209,24 @@ body {
   color: var(--pink);
   margin-bottom: 0.15rem;
   text-shadow: 0 0 18px rgba(255, 140, 180, 0.5);
+  min-height: 1.3em;
+}
+
+.name.typewriter::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.1em;
+  background: var(--pink);
+  box-shadow: 0 0 8px rgba(255, 150, 190, 0.7);
+  animation: blink-cursor 0.8s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .subtitle {
